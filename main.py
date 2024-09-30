@@ -71,15 +71,6 @@ def conf():
         window.blit(pg.font.Font(None,50).render("YES", True, (55,139,99)), (593,473))
         window.blit(pg.font.Font(None,50).render("NO  ", True, (255,0,61)), (300,472))
         pg.display.flip()
-fonts=[]
-class Font(pg.font.Font):
-    def __init__(self,font_style,font_size):
-        
-        self.font_style=font_style
-        self.font_size=font_size
-        super().__init__(font_style,font_size)
-        fonts.append(self)
-        
 
 class animations:
     i=0
@@ -133,10 +124,8 @@ class animations:
             self.lbl_t=0
         else:self.lbl_t+=1
         window.blit(font_engine.render(text[:self.lbl_i],True,[r,g,b]),coords)
-font_70 = Font(None,70)
-font_36 = Font("resources/test.ttf", 36)
-fonts.append(font_70)
-fonts.append(font_36)
+font_70 = pg.font.Font(None, 70)
+font_36 = pg.font.Font("resources/test.ttf", 36)
 animator=animations()
 player_turn_color=[192, 192, 192]
 class img_loader:
@@ -150,9 +139,9 @@ class img_loader:
         window.blit(title,(230,50))
         whose_turn=self.font_40.render("TURN : "+turn_player, True, player_turn_color)
         window.blit(whose_turn,(290,520))
-    font_40 = Font(None,40)
-    font_36 = Font(None, 36)
-    font_70 = Font(None, 70)
+    font_40 = pg.font.Font(None,40)
+    font_36 = pg.font.Font(None, 36)
+    font_70 = pg.font.Font(None, 70)
     def roll_button(self):
             self.button_rect=pg.draw.rect(window ,button_color, (button_x, button_y, button_width, button_height))
             pg.draw.rect(window,pg_img_loader.color,(730,140,18,18))
@@ -450,7 +439,6 @@ quit_box=pg.draw.rect(window,(255, 141, 141),(550,565,550,375))
 play_again=pg.draw.rect(window,(137, 255, 159),(125,565,250,75))
 
 while running:
-    
     for event in pg.event.get():
         if event.type==pg.QUIT:
             running=False
