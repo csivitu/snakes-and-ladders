@@ -1,8 +1,9 @@
 import pygame as pg
 from time import sleep
 from random import randint
+import sys
 
-
+'''
 choice=int(input("Do you want to play 2 player or player vs computer : (0 for computer and 1 for 2 player)\n>>"))
 while choice not in [0,1]:
     print("\nINVALID INPUT!!!\n")    
@@ -13,6 +14,88 @@ while choice not in [0,1]:
 else:
     name_1=input("Enter Player 1 Name \n>>")
     name_2="Computer" """
+'''
+
+
+# Screen dimensions
+SCREEN_WIDTH = 1000
+SCREEN_HEIGHT = 720
+
+# Colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+BLUE = (0, 0, 255)
+RED = (255, 0, 0)
+
+# Set up the display
+window = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pg.display.set_caption("Snakes and Ladders")
+
+#font
+pg.init()
+pg.font.init()
+font = pg.font.Font(None, 74)
+
+# Button class
+class Button:
+    def __init__(self, text, x, y, width, height, color, hover_color):
+        self.text = text
+        self.rect = pg.Rect(x, y, width, height)
+        self.color = color
+        self.hover_color = hover_color
+        self.hovered = False
+
+    def draw(self, screen):
+        color = self.hover_color if self.hovered else self.color
+        pg.draw.rect(screen, color, self.rect)
+        text_surf = font.render(self.text, True, WHITE)
+        text_rect = text_surf.get_rect(center=self.rect.center)
+        screen.blit(text_surf, text_rect)
+
+    def check_hover(self, mouse_pos):
+        self.hovered = self.rect.collidepoint(mouse_pos)
+
+    def is_clicked(self, mouse_pos, mouse_click):
+        return self.hovered and mouse_click[0]
+
+# Create buttons
+single_player_button = Button("Single Player", 300, 200, 400, 100, BLUE, RED)
+two_player_button = Button("Two Player", 300, 350, 400, 100, BLUE, RED)
+choice=None
+def main_menu():
+    while True:
+        window.fill(BLACK)
+        mouse_pos = pg.mouse.get_pos()
+        mouse_click = pg.mouse.get_pressed()
+
+        # Draw buttons
+        single_player_button.check_hover(mouse_pos)
+        single_player_button.draw(window)
+
+        two_player_button.check_hover(mouse_pos)
+        two_player_button.draw(window)
+
+        # Check for button clicks
+        if single_player_button.is_clicked(mouse_pos, mouse_click):
+            return 0  # Single Player Mode
+        if two_player_button.is_clicked(mouse_pos, mouse_click):
+            return 1  # Two Player Mode
+
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
+                sys.exit()
+
+        pg.display.flip()
+
+# Main game logic
+def main():
+    choice = main_menu()
+        # Add code to start two player mode
+
+if __name__ == "__main__":
+    main()
+ 
 ladder={4:25,21:39,29:74,43:76,63:80,71:89}
 snake={30:7,47:15,56:19,73:51,82:42,92:75,98:55}
 pg.init()
