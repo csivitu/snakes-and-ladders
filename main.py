@@ -23,7 +23,14 @@ window=pg.display.set_mode((1000,720))
 pg.display.set_caption("Snakes and Ladders")
 running = True
 is_started=False
-
+class Font(pg.font.Font):
+    fonts=[]
+    def __init__(self,font_style,font_size):
+        self.font_style=font_style
+        self.font_size=font_size
+        super().__init__(font_style,font_size)
+        Font.fonts.append(self)
+        print(Font.fonts)
 class loading_screen:
     r=g=b=255
     title="SNL"
@@ -46,20 +53,12 @@ class loading_screen:
                 animator.blinking(font_36,"PRESS ENTER",255,255,255,(350,450))
 
 loader=loading_screen()
-class Font(pg.font.Font):
-    fonts=[]
-    def __init__(self,font_style,font_size):
-        self.font_style=font_style
-        self.font_size=font_size
-        super.__init__(font_style,font_size)
-        Font.fonts.append(self)
-        print(Font.fonts)
+
         
 
 def conf():
     no=pg.draw.rect(window,(255, 141, 141),(200,450,250,75))
     yes=pg.draw.rect(window,(137, 255, 159),(500,450,250,75))
-
     running1=True
     while running1:
         for event in pg.event.get():
@@ -75,10 +74,8 @@ def conf():
                         return True
         
         pg.draw.rect(window,(181, 82, 82),(0,0,1000,720))
-        no=pg.draw.rect(window,(255, 141, 141),(200,450,250,75),border_radius=30)
-
-        yes=pg.draw.rect(window,(137, 255, 159),(500,450,250,75),border_radius=30)
-
+        no=pg.draw.rect(window,(255, 141, 141),(200,450,250,75))
+        yes=pg.draw.rect(window,(137, 255, 159),(500,450,250,75))
         window.blit(pg.font.Font(None, 70).render("CONFIRM ?", True, (255, 243, 213)), (350,150))
         window.blit(pg.font.Font(None,50).render("YES", True, (55,139,99)), (593,473))
         window.blit(pg.font.Font(None,50).render("NO  ", True, (255,0,61)), (300,472))
@@ -221,10 +218,9 @@ def win():
         win_text = p2.name+" Wins !!!"
     text_surface2 = img_loader.font_70.render(win_text, True, (randint(0,255), randint(0,255), randint(0,255)))
     window.blit(text_surface2,(270,290))
-    quit_box=pg.draw.rect(window,(255, 141, 141),(550,565,250,75),border_radius=30)
-
+    quit_box=pg.draw.rect(window,(255, 141, 141),(550,565,250,75))
     window.blit(pg.font.Font(None, 36).render("QUIT", True, (255,0,61)), (647,593))
-    play_again=pg.draw.rect(window,(137, 255, 159),(125,565,250,75),border_radius=30)
+    play_again=pg.draw.rect(window,(137, 255, 159),(125,565,250,75))
     window.blit(pg.font.Font(None, 36).render("RESET BOARD", True, (6, 85, 53)), (161,593))
     pg.display.flip()
 class dice:
@@ -444,8 +440,8 @@ if not is_started:
         clockk.tick(fps)
 
 turn_player=p1.name
-quit_box=pg.draw.rect(window,(255, 141, 141),(550,565,550,375),border_radius=180)
-play_again=pg.draw.rect(window,(137, 255, 159),(125,565,250,75),border_radius=30)
+quit_box=pg.draw.rect(window,(255, 141, 141),(550,565,550,375))
+play_again=pg.draw.rect(window,(137, 255, 159),(125,565,250,75))
 
 while running:
     for event in pg.event.get():
@@ -503,9 +499,9 @@ while running:
     pg_img_loader.roll_button()
     p1.img_load()
     p2.img_load()
-    quit_box=pg.draw.rect(window,(255, 141, 141),(550,565,250,75),border_radius=30)
+    quit_box=pg.draw.rect(window,(255, 141, 141),(550,565,250,75))
     window.blit(pg.font.Font(None, 36).render("QUIT", True, (255,0,61)), (647,593))
-    play_again=pg.draw.rect(window,(137, 255, 159),(125,565,250,75),border_radius=30)    
+    play_again=pg.draw.rect(window,(137, 255, 159),(125,565,250,75))
     window.blit(pg.font.Font(None, 36).render("RESET BOARD", True, (6, 85, 53)), (161,593))
     pg.display.flip()
 
