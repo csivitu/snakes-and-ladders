@@ -23,6 +23,9 @@ window=pg.display.set_mode((1000,720))
 pg.display.set_caption("Snakes and Ladders")
 running = True
 is_started=False
+dt=60/10000
+
+
 class Font(pg.font.Font):
     fonts=[]
     def __init__(self,font_style,font_size):
@@ -94,6 +97,9 @@ class animations:
     blinking_i=0
     blinking_t=1
     blinking_q=0
+    current_color=(0,0,0)
+    max_size_reached=False
+    anim_timer=0.0
     def blinking(self,font_engine,text,r,g,b,coords):
         if self.blinking_i>40:self.blinking_i,self.blinking_t=40,-1
         if self.blinking_i<0:self.blinking_i,self.blinking_t=0,1
@@ -134,8 +140,21 @@ class animations:
             self.lbl_t=0
         else:self.lbl_t+=1
         window.blit(font_engine.render(text[:self.lbl_i],True,[r,g,b]),coords)
-font_70 = Font(None, 70)
-font_36 = Font("resources/test.ttf", 36)
+    def rgb_animation(self):
+        r=randint(0,255)
+        g=randint(0,255)
+        b=randint(0,255)   
+        if self.anim_timer>0:
+            self.anim_timer-=dt
+        else:
+            self.current_color=(r,g,b)
+            self.anim_timer=.1
+        return self.current_color
+
+
+
+font_70 = pg.font.Font(None, 70)
+font_36 = pg.font.Font("resources/test.ttf", 36)
 animator=animations()
 player_turn_color=[192, 192, 192]
 class img_loader:
@@ -143,9 +162,11 @@ class img_loader:
     def load(self):
         window.fill(self.color)
         background_image=pg.image.load("resources/snl_board.jpeg")
+        
         image=pg.transform.smoothscale(background_image,[360,360])
+
         window.blit(image, (180, 100))
-        title = self.font_40.render("SNAKE AND LADDERS", True, (237, 224, 200))
+        title = self.font_40.render("SNAKE AND LADDERS", True, animator.rgb_animation())
         window.blit(title,(230,50))
         whose_turn=self.font_40.render("TURN : "+turn_player, True, player_turn_color)
         window.blit(whose_turn,(290,520))
@@ -169,9 +190,13 @@ class player:
     square_no=1
     path=""
     name=""
+    min_size=[20,30]
+    size=min_size
+    max_size=[40,50]
     def img_load(self):
         self.pre_image=pg.image.load(self.path)
-        self.image=pg.transform.smoothscale(self.pre_image,[20,30])
+        
+        self.image=pg.transform.smoothscale(self.pre_image,self.size)
         window.blit(self.image,[self.pos_x,self.pos_y])
     def move(self,square,player_2,img,if_not_ladder=60/36):
         self.target_square_no=square
@@ -412,7 +437,8 @@ if not is_started:
             pg.display.flip()
             clockk.tick(fps)
         p2.name=user_name_2
-
+    else:
+        p2.name="Computer"
 
 
     while running:
@@ -446,6 +472,7 @@ quit_box=pg.draw.rect(window,(255, 141, 141),(550,565,550,375),border_radius=180
 play_again=pg.draw.rect(window,(137, 255, 159),(125,565,250,75),border_radius=30)
 
 while running:
+    
     for event in pg.event.get():
         if event.type==pg.QUIT:
             running=False
