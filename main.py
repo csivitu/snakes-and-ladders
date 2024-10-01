@@ -13,8 +13,8 @@ while choice not in [0,1]:
 else:
     name_1=input("Enter Player 1 Name \n>>")
     name_2="Computer" """
-ladder={4:25,21:39,29:74,43:76,63:80,71:89}
-snake={30:7,47:15,56:19,73:51,82:42,92:75,98:55}
+ladder={1:38,4:14,9:31,21:42,28:84,51:67,71:91,80:100}
+snake={17:7,62:19,87:24,54:34,64:60,93:73,95:75,98:79}
 pg.init()
 fps=60
 is_both_players_on_same_square=0
