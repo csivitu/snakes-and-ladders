@@ -3,10 +3,8 @@ from time import sleep
 from random import randint
 
 
-choice=int(input("Do you want to play 2 player or player vs computer : (0 for computer and 1 for 2 player)\n>>"))
-while choice not in [0,1]:
-    print("\nINVALID INPUT!!!\n")    
-    choice=int(input("Do you want to play 2 player or player vs computer : (0 for computer and 1 for 2 player)\n>>"))
+choice=0
+
 """ if choice:
     name_1=input("Enter Player 1 Name \n>>")
     name_2=input("Enter Player 2 Name \n>>")
@@ -310,6 +308,31 @@ class dice:
             sleep(1)
         del self.i
         return self.roll_no+1
+running_choice=True
+while running_choice:
+
+    prompt= font_70.render("Select the mode", True, (255,255,255))
+    single_font=font_70.render("Single",True,(255,255,255))
+    double_font=font_70.render("Double",True,(255,255,255))
+    window.fill((0,0,0))
+    window.blit(prompt,(285,120))
+    single_box=pg.draw.rect(window,(0, 255, 0),(window.get_width()/2-300,window.get_height()/2,250,100),border_radius=100)
+    window.blit(single_font,(window.get_width()/2-250,window.get_height()/2+30))
+    two_player_box=pg.draw.rect(window,(0, 0, 255),(window.get_width()/2,window.get_height()/2,250,100),border_radius=100)
+    window.blit(double_font,(window.get_width()/2+50,window.get_height()/2+30))
+    for event in pg.event.get():  
+        if event.type==pg.QUIT:
+            running=running_choice=running_name=False
+    if event.type==pg.MOUSEBUTTONDOWN:
+        if event.button==1:
+            mouse_pos=pg.mouse.get_pos()
+            if single_box.collidepoint(mouse_pos):
+                choice=0
+                running_choice=False
+            if two_player_box.collidepoint(mouse_pos):
+                choice=1
+                running_choice=False
+    pg.display.flip()
 class interchange_2_player:
     turn=1
     def swapper(self,p1,p2):
