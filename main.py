@@ -23,6 +23,9 @@ window=pg.display.set_mode((1000,720))
 pg.display.set_caption("Snakes and Ladders")
 running = True
 is_started=False
+dt=60/10000
+
+
 class Font(pg.font.Font):
     fonts=[]
     def __init__(self,font_style,font_size):
@@ -96,6 +99,7 @@ class animations:
     blinking_q=0
     current_color=(0,0,0)
     max_size_reached=False
+    anim_timer=0.0
     def blinking(self,font_engine,text,r,g,b,coords):
         if self.blinking_i>40:self.blinking_i,self.blinking_t=40,-1
         if self.blinking_i<0:self.blinking_i,self.blinking_t=0,1
@@ -136,26 +140,17 @@ class animations:
             self.lbl_t=0
         else:self.lbl_t+=1
         window.blit(font_engine.render(text[:self.lbl_i],True,[r,g,b]),coords)
-    def rgb_boundary(self):
+    def rgb_animation(self):
         r=randint(0,255)
         g=randint(0,255)
-        b=randint(0,255)
-        self.current_color=(r,g,b)
-        sleep(.25)
+        b=randint(0,255)   
+        if self.anim_timer>0:
+            self.anim_timer-=dt
+        else:
+            self.current_color=(r,g,b)
+            self.anim_timer=.1
         return self.current_color
-    def size_change(self,size,min_size,max_size):
-        if self.max_size_reached==False and size<max_size:
-            for x in size:
-                x+=1
-        elif size>=max_size and self.max_size_reached==False:
-            self.max_size_reached=True
-        if self.max_size_reached and size>min_size:
-            for x in size:
-                x-=1
-        elif self.max_size_reached and size<=min_size:
-            self.max_size_reached=False
-        sleep(0.25)
-        return size
+
 
 
 font_70 = pg.font.Font(None, 70)
@@ -171,7 +166,7 @@ class img_loader:
         image=pg.transform.smoothscale(background_image,[360,360])
 
         window.blit(image, (180, 100))
-        title = self.font_40.render("SNAKE AND LADDERS", True, animator.rgb_boundary())
+        title = self.font_40.render("SNAKE AND LADDERS", True, animator.rgb_animation())
         window.blit(title,(230,50))
         whose_turn=self.font_40.render("TURN : "+turn_player, True, player_turn_color)
         window.blit(whose_turn,(290,520))
@@ -442,7 +437,8 @@ if not is_started:
             pg.display.flip()
             clockk.tick(fps)
         p2.name=user_name_2
-
+    else:
+        p2.name="Computer"
 
 
     while running:
