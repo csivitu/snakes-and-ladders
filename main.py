@@ -77,9 +77,9 @@ def conf():
 
         yes=pg.draw.rect(window,(137, 255, 159),(500,450,250,75),border_radius=30)
 
-        window.blit(pg.font.Font(None, 70).render("CONFIRM ?", True, (255, 243, 213)), (350,150))
-        window.blit(pg.font.Font(None,50).render("YES", True, (55,139,99)), (593,473))
-        window.blit(pg.font.Font(None,50).render("NO  ", True, (255,0,61)), (300,472))
+        window.blit(Font(None, 70).render("CONFIRM ?", True, (255, 243, 213)), (350,150))
+        window.blit(Font(None,50).render("YES", True, (55,139,99)), (593,473))
+        window.blit(Font(None,50).render("NO  ", True, (255,0,61)), (300,472))
         pg.display.flip()
 
 class animations:
@@ -221,9 +221,9 @@ def win():
     window.blit(text_surface2,(270,290))
     quit_box=pg.draw.rect(window,(255, 141, 141),(550,565,250,75),border_radius=30)
 
-    window.blit(pg.font.Font(None, 36).render("QUIT", True, (255,0,61)), (647,593))
+    window.blit(Font(None, 36).render("QUIT", True, (255,0,61)), (647,593))
     play_again=pg.draw.rect(window,(137, 255, 159),(125,565,250,75),border_radius=30)
-    window.blit(pg.font.Font(None, 36).render("RESET BOARD", True, (6, 85, 53)), (161,593))
+    window.blit(Font(None, 36).render("RESET BOARD", True, (6, 85, 53)), (161,593))
     pg.display.flip()
 class dice:
     dice_1=pg.transform.smoothscale(pg.image.load("resources/dice_01.png"),[100,100])
@@ -502,9 +502,9 @@ while running:
     p1.img_load()
     p2.img_load()
     quit_box=pg.draw.rect(window,(255, 141, 141),(550,565,250,75),border_radius=30)
-    window.blit(pg.font.Font(None, 36).render("QUIT", True, (255,0,61)), (647,593))
+    window.blit(Font(None, 36).render("QUIT", True, (255,0,61)), (647,593))
     play_again=pg.draw.rect(window,(137, 255, 159),(125,565,250,75),border_radius=30)    
-    window.blit(pg.font.Font(None, 36).render("RESET BOARD", True, (6, 85, 53)), (161,593))
+    window.blit(Font(None, 36).render("RESET BOARD", True, (6, 85, 53)), (161,593))
     pg.display.flip()
 
 pg.quit()
