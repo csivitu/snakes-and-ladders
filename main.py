@@ -54,7 +54,7 @@ def conf():
     while running1:
         for event in pg.event.get():
             if event.type==pg.QUIT:
-                running=False
+                running1=False
             if event.type==pg.MOUSEBUTTONDOWN:
                 if event.button==1:
                     mouse_pos=pg.mouse.get_pos()
