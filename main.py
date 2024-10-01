@@ -30,7 +30,7 @@ class Font(pg.font.Font):
         self.font_size=font_size
         super().__init__(font_style,font_size)
         Font.fonts.append(self)
-        print(Font.fonts)
+        
 class loading_screen:
     r=g=b=255
     title="SNL"
