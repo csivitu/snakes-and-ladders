@@ -23,7 +23,14 @@ window=pg.display.set_mode((1000,720))
 pg.display.set_caption("Snakes and Ladders")
 running = True
 is_started=False
-
+class Font(pg.font.Font):
+    fonts=[]
+    def __init__(self,font_style,font_size):
+        self.font_style=font_style
+        self.font_size=font_size
+        super().__init__(font_style,font_size)
+        Font.fonts.append(self)
+        
 class loading_screen:
     r=g=b=255
     title="SNL"
@@ -70,9 +77,9 @@ def conf():
 
         yes=pg.draw.rect(window,(137, 255, 159),(500,450,250,75),border_radius=30)
 
-        window.blit(pg.font.Font(None, 70).render("CONFIRM ?", True, (255, 243, 213)), (350,150))
-        window.blit(pg.font.Font(None,50).render("YES", True, (55,139,99)), (593,473))
-        window.blit(pg.font.Font(None,50).render("NO  ", True, (255,0,61)), (300,472))
+        window.blit(Font(None, 70).render("CONFIRM ?", True, (255, 243, 213)), (350,150))
+        window.blit(Font(None,50).render("YES", True, (55,139,99)), (593,473))
+        window.blit(Font(None,50).render("NO  ", True, (255,0,61)), (300,472))
         pg.display.flip()
 
 class animations:
@@ -127,8 +134,8 @@ class animations:
             self.lbl_t=0
         else:self.lbl_t+=1
         window.blit(font_engine.render(text[:self.lbl_i],True,[r,g,b]),coords)
-font_70 = pg.font.Font(None, 70)
-font_36 = pg.font.Font("resources/test.ttf", 36)
+font_70 = Font(None, 70)
+font_36 = Font("resources/test.ttf", 36)
 animator=animations()
 player_turn_color=[192, 192, 192]
 class img_loader:
@@ -142,9 +149,9 @@ class img_loader:
         window.blit(title,(230,50))
         whose_turn=self.font_40.render("TURN : "+turn_player, True, player_turn_color)
         window.blit(whose_turn,(290,520))
-    font_40 = pg.font.Font(None,40)
-    font_36 = pg.font.Font(None, 36)
-    font_70 = pg.font.Font(None, 70)
+    font_40 = Font(None,40)
+    font_36 = Font(None, 36)
+    font_70 = Font(None, 70)
     def roll_button(self):
             self.button_rect=pg.draw.rect(window ,button_color, (button_x, button_y, button_width, button_height))
             pg.draw.rect(window,pg_img_loader.color,(730,140,18,18))
@@ -214,9 +221,9 @@ def win():
     window.blit(text_surface2,(270,290))
     quit_box=pg.draw.rect(window,(255, 141, 141),(550,565,250,75),border_radius=30)
 
-    window.blit(pg.font.Font(None, 36).render("QUIT", True, (255,0,61)), (647,593))
+    window.blit(Font(None, 36).render("QUIT", True, (255,0,61)), (647,593))
     play_again=pg.draw.rect(window,(137, 255, 159),(125,565,250,75),border_radius=30)
-    window.blit(pg.font.Font(None, 36).render("RESET BOARD", True, (6, 85, 53)), (161,593))
+    window.blit(Font(None, 36).render("RESET BOARD", True, (6, 85, 53)), (161,593))
     pg.display.flip()
 class dice:
     dice_1=pg.transform.smoothscale(pg.image.load("resources/dice_01.png"),[100,100])
@@ -347,8 +354,8 @@ is_both_players_on_same_square=1
 p1.pos_y-=2
 p2.pos_y+=2
 running_load=running_name=True
-font_70 = pg.font.Font(None, 70)
-font_36 = pg.font.Font("resources/test.ttf", 36)
+font_70 = Font(None, 70)
+font_36 = Font("resources/test.ttf", 36)
 r=g=b=255
 title="SNL"
 temp=temp1=1
@@ -495,9 +502,9 @@ while running:
     p1.img_load()
     p2.img_load()
     quit_box=pg.draw.rect(window,(255, 141, 141),(550,565,250,75),border_radius=30)
-    window.blit(pg.font.Font(None, 36).render("QUIT", True, (255,0,61)), (647,593))
+    window.blit(Font(None, 36).render("QUIT", True, (255,0,61)), (647,593))
     play_again=pg.draw.rect(window,(137, 255, 159),(125,565,250,75),border_radius=30)    
-    window.blit(pg.font.Font(None, 36).render("RESET BOARD", True, (6, 85, 53)), (161,593))
+    window.blit(Font(None, 36).render("RESET BOARD", True, (6, 85, 53)), (161,593))
     pg.display.flip()
 
 pg.quit()
