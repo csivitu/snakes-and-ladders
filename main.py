@@ -155,33 +155,30 @@ font_70 = pg.font.Font(None, 70)
 font_36 = pg.font.Font("resources/test.ttf", 36)
 animator=animations()
 player_turn_color=[192, 192, 192]
-class img_loader:
-    color=[97,97,97]
-    def load(self):
-        window.fill(self.color)
-        background_image=pg.image.load("resources/snl_board.jpeg")
-        
-        image=pg.transform.smoothscale(background_image,[360,360])
 
-        window.blit(image, (180, 100))
-        title = self.font_40.render("SNAKE AND LADDERS", True, animator.rgb_animation())
-        window.blit(title,(230,50))
-        whose_turn=self.font_40.render("TURN : "+turn_player, True, player_turn_color)
-        window.blit(whose_turn,(290,520))
-    font_40 = Font(None,40)
-    font_36 = Font(None, 36)
-    font_70 = Font(None, 70)
-    def roll_button(self):
-            self.button_rect=pg.draw.rect(window ,button_color, (button_x, button_y, button_width, button_height))
-            pg.draw.rect(window,pg_img_loader.color,(730,140,18,18))
-            pg.draw.circle(window,button_color,(730+18,140+18),18)#1
-            pg.draw.rect(window,pg_img_loader.color,(830-18,140,18,18))
-            pg.draw.circle(window,button_color,(830-18,140+18),18)#2
-            pg.draw.rect(window,pg_img_loader.color,(730,240-18,18,18))
-            pg.draw.circle(window,button_color,(730+18,240-18),18)#3
-            pg.draw.rect(window,pg_img_loader.color,(830-18,240-18,18,18))
-            pg.draw.circle(window,button_color,(830-18,240-18),18)#4
-            animator.blinking(pg_img_loader.font_36,"ROLL",0,0,0,(750,178))
+def img_loader(turn_player,window,font_40,button_color,player_turn_color,animator):
+    color = [97,97,97]
+    window.fill(color)
+    background_image = pg.image.load("resources/snl_board.jpeg")
+    image = pg.transform.smoothscale(background_image,[360,360])
+    window.blit(image,(180,100))
+    title = font_40.render("SNAKE AND LADDERS",True,animator.rgb_animation())
+    window.blit(title, (230,50))
+    whose_turn = font_40.render("TURN : "+turn_player,True,player_turn_color)
+    window.blit(whose_turn, (290,520))
+    button_rect = pg.draw.rect(window, button_color, (button_x,button_y,button_width,button_height))
+    pg.draw.rect(window,color,(730,140,18,18))
+    pg.draw.circle(window,button_color,(730+18,140+18),18)  
+    pg.draw.rect(window,color,(830-18,140,18,18))
+    pg.draw.circle(window,button_color,(830-18,140+18),18)  
+    pg.draw.rect(window,color,(730,240-18,18,18))
+    pg.draw.circle(window,button_color,(730+18,240-18),18) 
+    pg.draw.circle(window,button_color,(830-18,240-18),18)  
+
+    animator.blinking(font_36,"ROLL",0,0,0,(750,178))
+
+img_loader(turn_player, window,font_40,button_color,player_turn_color, animator)
+
 class player:
     pos_x=188
     pos_y=428
